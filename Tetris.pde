@@ -5,6 +5,7 @@ import processing.sound.*;
 
 //The size of a tetris block
 final static int BLOCK_SIZE = 32;
+final boolean JUICY = true;
 
 //The render manager manages what gets rendered
 RenderManager renderManager = new RenderManager();
@@ -100,7 +101,7 @@ void draw() {
   }
   //Multiply the shake force, to make it go towards 0 again asap
   shake.mult(0.6);
-  translate(shake.x, shake.y);
+  if(JUICY) translate(shake.x, shake.y);
   //Nullify force if it is very small
   if (abs(shake.x) < 0.01) shake.x = shake.y = 0;
 
@@ -111,7 +112,7 @@ void draw() {
   else gotTetris --;
 
   //Render white overlay if we are shaking
-  if (gotTetris > 5) {
+  if (gotTetris > 5 && JUICY) {
     //10% chance to reset flashColor, makes sure that colors are likely to stay for a bit
     if (random(1) < 0.1) flashColor = color(random(255), 150, 255);
     //And also make a white overlay
@@ -199,6 +200,8 @@ void keyPressed() {
     targetOverlayOpacity = 0;
     //Remove all score
     ui.addScore(-ui.score);
+    //Play the impact sound
+    soundManager.impact2.play();
   } else {
     if (keyCode == 37) leftPressed = true;//left arrow key
     else if (keyCode == 39) rightPressed = true;//right arrow key

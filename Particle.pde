@@ -32,6 +32,7 @@ class Particle implements IUpdate, IRender {
    Renders the object
    **/
   void render() {
+    if(!JUICY) return;
     //Don't render if we;'re still delying
     if (delay > 0) return;
     //Set drawing parameters
@@ -73,6 +74,7 @@ class Particle implements IUpdate, IRender {
  Create a particle effect from the provided bounding box of the screen
  **/
 void createParticleEffect(float xPos, float yPos, int w, int h, color c, int d) {
+  if(!JUICY) return;
   //loadpixels was already done in the grid
   for (int x = int(xPos); x < xPos + w; x+= PARTICLE_SIZE) {
     for (int y = int(yPos); y < yPos + h; y+= PARTICLE_SIZE) {

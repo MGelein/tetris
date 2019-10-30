@@ -13,6 +13,10 @@ class SoundManager implements IUpdate{
   SoundFile down;
   //An explosion, might be useful?
   SoundFile explosion1;
+  //The second impact sound effect
+  SoundFile impact2;
+  //The first impact sound effet
+  SoundFile impact1;
   //Another explosion, more explosion more better?
   SoundFile explosion2;
   //The volume of the background music
@@ -29,6 +33,8 @@ class SoundManager implements IUpdate{
     blip = new SoundFile(parent, "blip.wav");
     explosion1 = new SoundFile(parent, "explosion1.wav");
     explosion2 = new SoundFile(parent, "explosion2.wav");
+    impact1 = new SoundFile(parent, "impact1.wav");
+    impact2 = new SoundFile(parent, "impact2.wav");
     down = new SoundFile(parent, "drop.wav");
     menuMusic = new SoundFile(parent, "menu.wav");
     //Subscribe myself to update notifications
@@ -64,6 +70,7 @@ class SoundManager implements IUpdate{
   Play the sound that indicates that a piece is dropped
   **/
   void playDown(){
+    if(!JUICY) return;
     //Play the drop sound
     down.play();
     //And lower the bg volume a little bit
@@ -74,6 +81,7 @@ class SoundManager implements IUpdate{
   Play a single explosion sound
   **/
   void playExplosion(){
+    if(!JUICY) return;
     //Pick an explosion sound to play
     if(random(1) < 0.5) explosion1.play();
     else explosion2.play();
@@ -85,6 +93,7 @@ class SoundManager implements IUpdate{
   Plays the blip
   **/
   void playBlip(){
+    if(!JUICY) return;
     //Play the blip
     blip.play();
     //Duck the volume a little
@@ -101,6 +110,9 @@ class SoundManager implements IUpdate{
     menuTargetVol = 0;
   }
   
+  /**
+  Starts the menu music
+  **/
   void startMenuMusic(){
     menuMusic.loop();
     menuTargetVol = 1;

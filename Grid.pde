@@ -382,7 +382,7 @@ class Cell {
     square(g.border, g.border, g.bs(1) - g.border * 2);
 
     //Mutate color a little every couple of frames frames
-    if (frameCount % 6 == 0) c = color(hue(c) + 6, saturation(c), brightness(c));
+    if (frameCount % 6 == 0 && JUICY) c = color(hue(c) + 6, saturation(c), brightness(c));
   }
 
   /**
@@ -418,7 +418,7 @@ class TShape implements IUpdate {
     updateManager.add(this);
     //MAke the first shape
     int x = (int) random(g.size.x);
-    randomShape((int) 1, x);
+    randomShape((int) random(7), x);
     color c = color(random(255), 255, 255);
     for (XY2D pos : cells) {
       g.getCell(pos.x, pos.y).c = c;
@@ -506,7 +506,10 @@ class TShape implements IUpdate {
     frameCounter++;
 
     //If the spacebar is down, move down extra fast
-    if (speedPressed) frameCounter += fallRate / 2;
+    if (speedPressed) {
+      frameCounter += fallRate / 2;
+      ui.addScore(1);
+    }
 
     //If the left is down, move to the left
     if (leftPressed) {
@@ -687,6 +690,7 @@ class TShape implements IUpdate {
         for(XY2D cpos : cells){
           if(cpos.y <= 4) {
             gameover = true;
+            soundManager.impact1.play();
             break;
           }
         }

@@ -61,7 +61,7 @@ class UI{
     //Calculate the difference between target and score
     float delta = (targetScore - score);
     //Only multiply if we're not done with the last bit of adding the targetScore
-    if(delta > 10) delta *= 0.1;
+    if(delta > 10 && JUICY) delta *= 0.1;
     score += delta;
     text("Score: " + score + " pts", left + leftBuffer, 120);
     //Show the instructions how to play
